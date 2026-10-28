@@ -1,0 +1,17 @@
+# Hermes 镜像站前端（仅绑定本机回环地址，由宿主 nginx 反代 443 -> 8092）
+services:
+  web:
+    build:
+      context: .
+      args:
+        NPM_REGISTRY: "https://registry.npmjs.org"
+    image: myhermes-site:latest
+    container_name: myhermes-site
+    restart: always
+    ports:
+      - "127.0.0.1:8092:80"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
